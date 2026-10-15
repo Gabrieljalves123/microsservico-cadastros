@@ -109,3 +109,19 @@ def criar_agendamento_com_evento(
     producer.publicar_agendamento(evento)
 
     return novo, evento
+
+def processar_evento_agendamento(evento: dict):
+    tipo = evento.get("tipo")
+
+    if tipo == "AGENDAMENTO_CRIADO":
+        dados = evento.get("dados", {})
+        print(
+            f"Agendamento {dados.get('id')} "
+            "recebido e processado pelo Service."
+        )
+
+    elif tipo == "TESTE_CONEXAO":
+        print("Mensagem de teste processada pelo Service.")
+
+    else:
+        raise ValueError(f"Tipo de evento desconhecido: {tipo}")
